@@ -1,8 +1,10 @@
 import json
 
+
 def get_text(prompt):
 
     while True:
+
         text = input(prompt).strip()
         if text == "":
             print("Error: no puede dejar el campo vacío.")
@@ -10,44 +12,58 @@ def get_text(prompt):
             print("Error: debe ingresar texto y no números.")
         else:
             return text
-        
-
-try:
-
-    file = open("pokemon.json", "r")
-    pokemons = json.load(file)
-    file.close()
-except FileNotFoundError:
-    print("Archivo no encontrado. Se creará uno nuevo.")
-    pokemons = []
-except json.JSONDecodeError:
-    print("El archivo JSON está vacío o tiene formato incorrecto.")
-    pokemons = []
 
 
-name = get_text("Nombre del Pokemon: ")
+def load_pokemons(file_name):
 
-pokemon_type = get_text("Tipo del Pokemon: ")
+    try:
 
-new_pokemon = {
-    "name": name,
-    "type": pokemon_type
-}
+        file = open(file_name, "r")
+        pokemons = json.load(file)
+        file.close()
+        return pokemons
 
-pokemons.append(new_pokemon)
+    except FileNotFoundError:
+        print("Archivo no encontrado. Se creará uno nuevo.")
+        return []
 
-try:
+    except json.JSONDecodeError:
+        print("El archivo JSON está vacío o tiene formato incorrecto.")
+        return []
 
-    file = open("pokemon.json", "w")
 
-    json.dump(
-        pokemons,
-        file,
-        indent=4
-    )
-    file.close()
-    print("Pokemon agregado correctamente!! ")
+def create_pokemon():
+    name = get_text("Nombre del Pokemon: ")
+    pokemon_type = get_text("Tipo del Pokemon: ")
+    return {
+        "name": name,
+        "type": pokemon_type
+    }
 
-except Exception as error:
 
-    print(f"Ocurrió un error al guardar el archivo: {error}")
+def save_pokemons(file_name, pokemons):
+
+    try:
+        file = open(file_name, "w")
+        json.dump(
+            pokemons,
+            file,
+            indent=4
+        )
+        file.close()
+        print("Pokemon agregado correctamente!!")
+
+    except Exception as error:
+        print(f"Ocurrió un error al guardar el archivo: {error}")
+
+
+def main():
+
+    file_name = "pokemon.json"
+    pokemons = load_pokemons(file_name)
+    new_pokemon = create_pokemon()
+    pokemons.append(new_pokemon)
+    save_pokemons(file_name, pokemons)
+
+
+main()
