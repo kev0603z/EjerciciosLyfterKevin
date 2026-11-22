@@ -1,6 +1,8 @@
 from menu import menu
-
 def main():
-    menu()
+
+    students = []
+
+    menu(students)
 
 main()

@@ -25,17 +25,21 @@ def get_grade(prompt):
         else:
             return grade
 
-students = []
-
 
 def get_student_amount():
 
     while True:
         try:
-            return int(input("¿Cuántos estudiantes desea registrar? "))
+            amount = int(input("¿Cuántos estudiantes desea registrar? "))
+
+            if amount <= 0:
+                print("Error: debe ingresar un número mayor que 0.")
+                continue
+
+            return amount
+
         except ValueError:
             print("Error: debe ingresar un número entero.")
-
 
 def create_student():
 
@@ -56,7 +60,7 @@ def create_student():
         "science_grade": science_grade,
     }
 
-def add_students():
+def add_students(students):
     amount_students = get_student_amount()
     for index in range(amount_students):
         print(f"\nEstudiante #{index + 1}")
@@ -64,7 +68,7 @@ def add_students():
         students.append(student)
         
         
-def show_students():
+def show_students(students):
 
     if len(students) == 0:
         print("No hay estudiantes registrados.")
@@ -92,7 +96,7 @@ def calculate_average(student):
     return average
 
 
-def show_general_average():
+def show_general_average(students):
 
     if len(students) == 0:
         print("No hay estudiantes registrados.")
@@ -106,7 +110,7 @@ def show_general_average():
     print(f"Promedio General: {general_average}")
     
 
-def show_top_3():
+def show_top_3(students):
     if len(students) == 0:
         print("No hay estudiantes registrados.")
         return

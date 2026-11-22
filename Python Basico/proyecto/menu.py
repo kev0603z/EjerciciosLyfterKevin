@@ -2,7 +2,7 @@ import actions
 import data
 
 
-def menu():
+def menu(students):
     
     while True:
         
@@ -28,23 +28,23 @@ def menu():
         match option:
 
                 case 1:
-                    actions.add_students()
+                    actions.add_students(students)
                     
                 case 2:
-                    actions.show_students()
+                    actions.show_students(students)
                     
                 case 3:
-                    actions.show_top_3()
+                    actions.show_top_3(students)
                     
                 case 4:
-                    actions.show_general_average()
+                    actions.show_general_average(students)
                         
                 case 5:
-                    data.export_students(actions.students)
-                        
-                case 6:
-                    actions.students = data.import_students()
                     
+                    data.export_students(students)
+                case 6:
+                    
+                    students = data.import_students()
                 case 7:
                     print(" Saliendo ...")
                     break
