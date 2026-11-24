@@ -44,7 +44,13 @@ def menu(students):
                     data.export_students(students)
                 case 6:
                     
-                    students = data.import_students()
+                    imported_students = data.import_students()
+
+                    if imported_students:
+                        students = imported_students
+                    else:
+                        print("Se conservarán los estudiantes actualmente cargados.")
+
                 case 7:
                     print(" Saliendo ...")
                     break
